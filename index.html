@@ -189,21 +189,46 @@
     <div id="guide-modal" class="hidden nature-overlay nature-overlay-book">
       <div class="nature-guide-shell">
         <div class="nature-guide-topbar">
-          <div>
-            <p class="nature-guide-kicker">Swipe Through Your Finds</p>
-            <h3 class="title is-4 mb-0">My Nature Guide</h3>
-          </div>
           <button
             type="button"
             onclick="closeGuide()"
-            class="button is-success is-light is-rounded"
+            class="button is-success is-light is-rounded nature-guide-back"
           >
-            <span class="icon"><i class="fas fa-times"></i></span>
+            <span class="icon"><i class="fas fa-arrow-left"></i></span>
+            <span>Back to Pictures</span>
           </button>
+          <div class="nature-guide-heading">
+            <p class="nature-guide-kicker">Swipe Through Your Finds</p>
+            <h3 class="title is-4 mb-0">My Nature Guide</h3>
+          </div>
         </div>
 
         <div id="guide-book" class="nature-guide-book">
-          <!-- Guide pages injected here -->
+          <div id="guide-track" class="nature-guide-track">
+            <!-- Guide pages injected here -->
+          </div>
+        </div>
+
+        <div class="nature-guide-controls">
+          <button
+            id="guide-prev"
+            type="button"
+            onclick="goToPreviousGuidePage()"
+            class="button is-warning is-light is-rounded nature-guide-nav"
+          >
+            <span class="icon"><i class="fas fa-chevron-left"></i></span>
+            <span>Previous</span>
+          </button>
+          <div id="guide-page-indicator" class="nature-guide-page-indicator">Cover</div>
+          <button
+            id="guide-next"
+            type="button"
+            onclick="goToNextGuidePage()"
+            class="button is-warning is-light is-rounded nature-guide-nav"
+          >
+            <span>Next</span>
+            <span class="icon"><i class="fas fa-chevron-right"></i></span>
+          </button>
         </div>
       </div>
     </div>

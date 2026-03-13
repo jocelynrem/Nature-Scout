@@ -6,6 +6,8 @@ let observations = {};
 let stream = null;
 let currentAudio = null;
 let guideAutoOpened = false;
+let currentGuidePage = 0;
+let guideTouchStartX = null;
 const optionIcons = {
   'I noticed leaves': '🍃',
   'I noticed roots': '🌱',
@@ -127,7 +129,7 @@ function renderGrid() {
   const progressPill = document.getElementById('progress-pills');
   const guideButton = document.getElementById('guide-button');
   progressPill.textContent = `${foundCount} / ${tasks.length} Found`;
-  guideButton.classList.toggle('hidden', foundCount === 0);
+  guideButton.classList.toggle('hidden', foundCount !== tasks.length);
   if (foundCount === tasks.length) {
     progressPill.classList.add('is-complete');
     progressPill.textContent = `Gold Scout! 🏆`;
@@ -227,9 +229,10 @@ function closeSuccess() {
 }
 
 function openGuide() {
-  if (!Object.keys(photos).length) return;
+  if (Object.keys(photos).length !== tasks.length) return;
   renderGuide();
   document.getElementById('guide-modal').classList.remove('hidden');
+  goToGuidePage(0, false);
 }
 
 function closeGuide() {
@@ -238,10 +241,10 @@ function closeGuide() {
 }
 
 function renderGuide() {
-  const guideBook = document.getElementById('guide-book');
+  const guideTrack = document.getElementById('guide-track');
   const foundTasks = tasks.filter((task) => photos[task.id]);
 
-  guideBook.innerHTML = `
+  guideTrack.innerHTML = `
     <article class="nature-guide-page nature-guide-cover">
       <div class="nature-guide-sparkle nature-guide-sparkle-one">🍓</div>
       <div class="nature-guide-sparkle nature-guide-sparkle-two">🦋</div>
@@ -287,7 +290,7 @@ function renderGuide() {
         </div>
       </div>
     `;
-    guideBook.appendChild(page);
+    guideTrack.appendChild(page);
   });
 
   const finalePage = document.createElement('article');
@@ -300,8 +303,84 @@ function renderGuide() {
     </p>
     <p class="nature-guide-cover-tip">Open it anytime with the Field Guide button.</p>
   `;
-  guideBook.appendChild(finalePage);
-  guideBook.scrollTo({ left: 0, behavior: 'auto' });
+  guideTrack.appendChild(finalePage);
+  currentGuidePage = 0;
+  attachGuideSwipeHandlers();
+  updateGuidePager();
+}
+
+function getGuidePageCount() {
+  const guideTrack = document.getElementById('guide-track');
+  return guideTrack ? guideTrack.children.length : 0;
+}
+
+function goToGuidePage(index, animate = true) {
+  const guideTrack = document.getElementById('guide-track');
+  if (!guideTrack) return;
+
+  const pageCount = getGuidePageCount();
+  if (!pageCount) return;
+
+  currentGuidePage = Math.max(0, Math.min(index, pageCount - 1));
+  guideTrack.style.transition = animate ? 'transform 0.35s ease' : 'none';
+  guideTrack.style.transform = `translateX(calc(${currentGuidePage} * -100% - ${currentGuidePage} * var(--guide-gap, 0.85rem)))`;
+  updateGuidePager();
+}
+
+function goToNextGuidePage() {
+  goToGuidePage(currentGuidePage + 1);
+}
+
+function goToPreviousGuidePage() {
+  goToGuidePage(currentGuidePage - 1);
+}
+
+function updateGuidePager() {
+  const prevButton = document.getElementById('guide-prev');
+  const nextButton = document.getElementById('guide-next');
+  const indicator = document.getElementById('guide-page-indicator');
+  const pageCount = getGuidePageCount();
+
+  if (!pageCount) return;
+
+  prevButton.disabled = currentGuidePage === 0;
+  nextButton.disabled = currentGuidePage === pageCount - 1;
+
+  if (currentGuidePage === 0) {
+    indicator.textContent = 'Cover';
+    return;
+  }
+
+  if (currentGuidePage === pageCount - 1) {
+    indicator.textContent = 'The End';
+    return;
+  }
+
+  indicator.textContent = `Page ${currentGuidePage} of ${pageCount - 2}`;
+}
+
+function attachGuideSwipeHandlers() {
+  const guideBook = document.getElementById('guide-book');
+  if (!guideBook || guideBook.dataset.swipeReady === 'true') return;
+
+  guideBook.addEventListener('touchstart', (event) => {
+    guideTouchStartX = event.changedTouches[0].clientX;
+  }, { passive: true });
+
+  guideBook.addEventListener('touchend', (event) => {
+    if (guideTouchStartX === null) return;
+    const deltaX = event.changedTouches[0].clientX - guideTouchStartX;
+    guideTouchStartX = null;
+
+    if (Math.abs(deltaX) < 45) return;
+    if (deltaX < 0) {
+      goToNextGuidePage();
+      return;
+    }
+    goToPreviousGuidePage();
+  }, { passive: true });
+
+  guideBook.dataset.swipeReady = 'true';
 }
 
 function speakCurrentTask() {

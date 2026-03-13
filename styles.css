@@ -654,6 +654,18 @@ body {
   gap: 0.75rem;
 }
 
+.nature-guide-heading {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.nature-guide-back.button,
+.nature-guide-nav.button {
+  border: 0;
+  font-weight: 900;
+}
+
 .nature-guide-kicker {
   margin: 0 0 0.2rem;
   font-size: 0.72rem;
@@ -664,31 +676,45 @@ body {
 }
 
 .nature-guide-book {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  gap: 0.85rem;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  padding-bottom: 0.25rem;
+  --guide-gap: 0.85rem;
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-x;
 }
 
-.nature-guide-book::-webkit-scrollbar {
-  height: 0.55rem;
-}
-
-.nature-guide-book::-webkit-scrollbar-thumb {
-  background: rgba(60, 116, 71, 0.32);
-  border-radius: 999px;
+.nature-guide-track {
+  display: flex;
+  gap: var(--guide-gap);
+  will-change: transform;
 }
 
 .nature-guide-page {
-  scroll-snap-align: center;
-  min-height: 0;
+  min-width: 100%;
   display: flex;
   position: relative;
+  flex: 0 0 100%;
+}
+
+.nature-guide-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.nature-guide-page-indicator {
+  min-width: 6.5rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(36, 115, 74, 0.1);
+  color: #365840;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.nature-guide-nav.button[disabled] {
+  opacity: 0.45;
 }
 
 .nature-guide-cover,
@@ -1053,6 +1079,17 @@ body {
   .nature-guide-shell {
     width: 100%;
     padding: 0.85rem;
+  }
+
+  .nature-guide-topbar,
+  .nature-guide-controls {
+    flex-direction: column;
+  }
+
+  .nature-guide-back.button,
+  .nature-guide-nav.button {
+    width: 100%;
+    justify-content: center;
   }
 
   .nature-guide-cover,
