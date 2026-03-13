@@ -417,8 +417,14 @@ async function playAudio(audioId) {
   stopSpeaking();
   const audio = new Audio(`audio/${audioId}.wav`);
   currentAudio = audio;
+  let playbackStarted = false;
+  let fallbackShown = false;
 
   const fallbackToText = (error) => {
+    if (playbackStarted || fallbackShown) {
+      return;
+    }
+    fallbackShown = true;
     if (currentAudio === audio) {
       currentAudio = null;
     }
@@ -432,8 +438,17 @@ async function playAudio(audioId) {
     { once: true },
   );
 
+  audio.addEventListener(
+    'playing',
+    () => {
+      playbackStarted = true;
+    },
+    { once: true },
+  );
+
   try {
     await audio.play();
+    playbackStarted = true;
   } catch (error) {
     fallbackToText(error);
   }
