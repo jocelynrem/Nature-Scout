@@ -77,6 +77,18 @@ body {
   line-height: 1;
 }
 
+.nature-inline-emoji {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.nature-inline-emoji-lg {
+  font-size: 1.45rem;
+}
+
 .nature-kicker {
   margin-bottom: 0.5rem;
   font-size: 0.85rem;
@@ -173,6 +185,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
+  line-height: 1;
 }
 
 .nature-topbar-subtitle {
@@ -454,6 +467,12 @@ body {
   gap: 0.3rem;
   line-height: 1;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.saved-card-action span,
+.saved-card-audio span,
+.mission-audio-trigger span {
+  line-height: 1;
 }
 
 .saved-card-footer {

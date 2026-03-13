@@ -19,10 +19,6 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
     />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-    ></script>
     <link rel="stylesheet" href="styles.css" />
     <script src="content.js"></script>
   </head>
@@ -44,7 +40,7 @@
               onclick="startGame()"
               class="button is-warning is-large nature-start-button btn-bounce"
             >
-              <span class="icon"><i class="fas fa-shoe-prints"></i></span>
+              <span class="nature-inline-emoji" aria-hidden="true">🥾</span>
               <span>Start Walk</span>
             </button>
           </div>
@@ -61,9 +57,7 @@
         <div class="container is-max-desktop nature-app-container">
           <header class="box nature-topbar">
             <div class="nature-topbar-brand">
-              <span class="icon nature-topbar-icon">
-                <i class="fas fa-seedling"></i>
-              </span>
+              <span class="nature-topbar-icon" aria-hidden="true">🌱</span>
               <div>
                 <h2 class="title is-5 mb-0 has-text-white">
                   First Grade Nature Scout
@@ -78,7 +72,7 @@
                 onclick="openGuide()"
                 class="button is-warning is-light is-rounded nature-guide-button hidden"
               >
-                <span class="icon"><i class="fas fa-book-open"></i></span>
+                <span class="nature-inline-emoji" aria-hidden="true">📖</span>
                 <span>Field Guide</span>
               </button>
               <div id="progress-pills" class="tag is-success is-medium nature-progress">
@@ -98,14 +92,14 @@
               <div id="camera-instr-container" class="nature-camera-banner-wrap">
                 <div class="nature-camera-banner">
                   <span class="nature-camera-banner-text">
-                    <i class="fas fa-camera-retro"></i>
+                    <span aria-hidden="true">📷</span>
                     <span>Find: <span id="target-label"></span></span>
                   </span>
                   <button
                     onclick="speakCurrentTask()"
                     class="button is-small is-warning is-light is-rounded"
                   >
-                    <span class="icon"><i class="fas fa-volume-up"></i></span>
+                    <span class="nature-inline-emoji" aria-hidden="true">🔊</span>
                   </button>
                 </div>
               </div>
@@ -118,7 +112,7 @@
                   onclick="closeCamera()"
                   class="button is-danger is-rounded nature-camera-close btn-bounce"
                 >
-                  <span class="icon is-medium"><i class="fas fa-times fa-lg"></i></span>
+                  <span class="nature-inline-emoji nature-inline-emoji-lg" aria-hidden="true">✕</span>
                 </button>
                 <button
                   onclick="takePhoto()"
@@ -142,16 +136,14 @@
       <div class="nature-dialog box">
         <div class="nature-dialog-header">
           <h3 class="title is-4 mb-0">
-            <span class="icon has-text-info">
-              <i class="fas fa-search"></i>
-            </span>
+            <span class="nature-inline-emoji" aria-hidden="true">🔎</span>
             <span>I Noticed...</span>
           </h3>
           <button
             onclick="speakPropertyQuestion()"
             class="button is-info is-light is-rounded"
           >
-            <span class="icon"><i class="fas fa-volume-up"></i></span>
+            <span class="nature-inline-emoji" aria-hidden="true">🔊</span>
           </button>
         </div>
         <p id="property-question" class="nature-dialog-question">
@@ -164,7 +156,7 @@
     <div id="success-modal" class="hidden nature-overlay nature-overlay-dark">
       <div class="nature-dialog box nature-success-dialog">
         <div class="nature-success-badge">
-          <span class="icon is-large"><i class="fas fa-star"></i></span>
+          <span class="nature-inline-emoji nature-inline-emoji-lg" aria-hidden="true">⭐</span>
         </div>
         <div class="nature-dialog-header nature-dialog-header-center">
           <h3 class="title is-3 mb-0 has-text-success-dark">Science Fact!</h3>
@@ -172,7 +164,7 @@
             onclick="speakCurrentFact()"
             class="button is-success is-light is-rounded"
           >
-            <span class="icon"><i class="fas fa-volume-up"></i></span>
+            <span class="nature-inline-emoji" aria-hidden="true">🔊</span>
           </button>
         </div>
         <div id="success-fact" class="nature-success-fact"></div>
@@ -180,7 +172,7 @@
           onclick="closeSuccess()"
           class="button is-success is-large is-fullwidth nature-success-button btn-bounce"
         >
-          <span class="icon"><i class="fas fa-book-open"></i></span>
+          <span class="nature-inline-emoji" aria-hidden="true">📖</span>
           <span>Add to Guide</span>
         </button>
       </div>
@@ -194,7 +186,7 @@
             onclick="closeGuide()"
             class="button is-success is-light is-rounded nature-guide-back"
           >
-            <span class="icon"><i class="fas fa-arrow-left"></i></span>
+            <span class="nature-inline-emoji" aria-hidden="true">←</span>
             <span>Back to Pictures</span>
           </button>
           <div class="nature-guide-heading">
@@ -216,7 +208,7 @@
             onclick="goToPreviousGuidePage()"
             class="button is-warning is-light is-rounded nature-guide-nav"
           >
-            <span class="icon"><i class="fas fa-chevron-left"></i></span>
+            <span class="nature-inline-emoji" aria-hidden="true">←</span>
             <span>Previous</span>
           </button>
           <div id="guide-page-indicator" class="nature-guide-page-indicator">Cover</div>
@@ -227,7 +219,7 @@
             class="button is-warning is-light is-rounded nature-guide-nav"
           >
             <span>Next</span>
-            <span class="icon"><i class="fas fa-chevron-right"></i></span>
+            <span class="nature-inline-emoji" aria-hidden="true">→</span>
           </button>
         </div>
       </div>

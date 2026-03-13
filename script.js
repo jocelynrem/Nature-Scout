@@ -9,37 +9,37 @@ let guideAutoOpened = false;
 let currentGuidePage = 0;
 let guideTouchStartX = null;
 const optionIcons = {
-  'I noticed leaves': '🍃',
-  'I noticed roots': '🌱',
-  'I noticed rocks': '🪨',
-  'I noticed water': '💧',
-  'I noticed it holds the plant up': '🪴',
-  'I noticed it makes bark': '🐶',
-  'I noticed it turns to metal': '🔩',
-  'I noticed it makes the plant hop': '🐸',
-  'I noticed new plants': '🌼',
-  'I noticed shoes': '👟',
-  'I noticed clouds': '☁️',
-  'I noticed pebbles': '🪨',
-  'I noticed dark soil': '⬛',
-  'I noticed light soil': '💡',
-  'I noticed bumpy soil': '⛰️',
-  'I noticed more than one of these': '✅',
-  'I noticed it is about fist-size': '✊',
-  'I noticed it is bigger than a car': '🚗',
-  'I noticed it is tiny as sand': '⏺️',
-  'I noticed it is flat as paper': '📄',
-  'I noticed it feels smooth': '🫧',
-  'I noticed it feels fuzzy': '🐻',
-  'I noticed it feels squishy': '🧽',
-  'I noticed it feels sticky': '🍯',
-  'I noticed it looks shiny': '✨',
-  'I noticed it melts': '🫠',
-  'I noticed it barks': '🐕',
-  'I noticed it grows leaves': '🍀',
-  'I noticed it feels liquid': '🥤',
-  'I noticed it feels fluffy': '🪶',
-  'I noticed it feels like hot chocolate': '☕',
+  Leaves: '🍃',
+  Roots: '🌱',
+  Rocks: '🪨',
+  Water: '💧',
+  'Helps hold it up': '🪴',
+  'Makes bark': '🐶',
+  'Turns to metal': '🔩',
+  'Makes it hop': '🐸',
+  'New plants': '🌼',
+  Shoes: '👟',
+  Clouds: '☁️',
+  Pebbles: '🪨',
+  'Dark soil': '⬛',
+  'Light soil': '💡',
+  'Bumpy soil': '⛰️',
+  'More than one of these': '✅',
+  'About fist-size': '✊',
+  'Bigger than a car': '🚗',
+  'Tiny as sand': '⏺️',
+  'Flat as paper': '📄',
+  Smooth: '🫧',
+  Fuzzy: '🐻',
+  Squishy: '🧽',
+  Sticky: '🍯',
+  'Looks shiny': '✨',
+  Melts: '🫠',
+  Barks: '🐕',
+  'Grows leaves': '🍀',
+  Liquid: '🥤',
+  Fluffy: '🪶',
+  'Like hot chocolate': '☕',
 };
 
 function getTaskById(taskId) {
@@ -102,12 +102,12 @@ function renderGrid() {
                         <div class="mission-photo-overlay"></div>
                         <div class="saved-card-toolbar">
                             <button type="button" class="saved-card-action button is-danger is-rounded" onclick="event.stopPropagation(); deletePhoto('${task.id}')">
-                                <span class="icon is-small"><i class="fas fa-trash-alt"></i></span>
+                                <span aria-hidden="true">🗑️</span>
                             </button>
                         </div>
                         <div class="saved-card-footer">
                             <button type="button" class="saved-card-audio" onclick="event.stopPropagation(); speakTaskFact('${task.id}')">
-                              <i class="fas fa-volume-up"></i>
+                              <span aria-hidden="true">🔊</span>
                             </button>
                             <div class="saved-card-label">${task.label} &#10003; ${obs}</div>
                             <div class="saved-card-spacer"></div>
@@ -119,7 +119,7 @@ function renderGrid() {
                         <div class="mission-emoji">${task.emoji}</div>
                         <div class="mission-label">${task.label}</div>
                         <button type="button" class="mission-audio-trigger" onclick="event.stopPropagation(); speakTaskClue('${task.id}')">
-                          <i class="fas fa-volume-up"></i>
+                          <span aria-hidden="true">🔊</span>
                         </button>
                     `;
     }
@@ -179,10 +179,10 @@ function takePhoto() {
   canvas.height = video.videoHeight;
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
   photos[activeTaskId] = canvas.toDataURL('image/png');
+  observations[activeTaskId] = getTaskById(activeTaskId)?.options?.[0] || '';
   closeCamera();
   const task = getTaskById(activeTaskId);
-  if (task.question) showPropertySelection(task);
-  else showSuccess(task);
+  showSuccess(task);
 }
 
 function showPropertySelection(task) {
@@ -284,7 +284,7 @@ function renderGuide() {
             class="button is-success is-light is-rounded nature-guide-audio"
             onclick="speakTaskFact('${task.id}')"
           >
-            <span class="icon"><i class="fas fa-volume-up"></i></span>
+            <span class="nature-inline-emoji" aria-hidden="true">🔊</span>
             <span>Read This Page</span>
           </button>
         </div>
