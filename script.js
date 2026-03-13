@@ -179,9 +179,12 @@ function takePhoto() {
   canvas.height = video.videoHeight;
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
   photos[activeTaskId] = canvas.toDataURL('image/png');
-  observations[activeTaskId] = getTaskById(activeTaskId)?.options?.[0] || '';
   closeCamera();
   const task = getTaskById(activeTaskId);
+  if (task.question) {
+    showPropertySelection(task);
+    return;
+  }
   showSuccess(task);
 }
 
