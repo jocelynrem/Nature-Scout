@@ -126,11 +126,11 @@ function renderGrid() {
   const foundCount = Object.keys(photos).length;
   const progressPill = document.getElementById('progress-pills');
   const guideButton = document.getElementById('guide-button');
-  progressPill.innerText = `${foundCount} / ${tasks.length} Found`;
+  progressPill.textContent = `${foundCount} / ${tasks.length} Found`;
   guideButton.classList.toggle('hidden', foundCount === 0);
   if (foundCount === tasks.length) {
     progressPill.classList.add('is-complete');
-    progressPill.innerText = `Gold Scout! 🏆`;
+    progressPill.textContent = `Gold Scout! 🏆`;
   } else {
     progressPill.classList.remove('is-complete');
   }
@@ -149,7 +149,7 @@ function deletePhoto(taskId) {
 async function openCamera(taskId) {
   activeTaskId = taskId;
   const task = getTaskById(taskId);
-  document.getElementById('target-label').innerText = task.label;
+  document.getElementById('target-label').textContent = task.label;
   const video = document.getElementById('video-preview');
   try {
     stream = await navigator.mediaDevices.getUserMedia({
@@ -185,7 +185,7 @@ function takePhoto() {
 
 function showPropertySelection(task) {
   const modal = document.getElementById('property-modal');
-  document.getElementById('property-question').innerText = task.question;
+  document.getElementById('property-question').textContent = task.question;
   const optionsContainer = document.getElementById('property-options');
   optionsContainer.innerHTML = '';
   task.options.forEach((opt) => {
@@ -211,7 +211,7 @@ function getOptionIcon(optionText) {
 }
 
 function showSuccess(task) {
-  document.getElementById('success-fact').innerText = task.fact;
+  document.getElementById('success-fact').textContent = task.fact;
   document.getElementById('success-modal').classList.remove('hidden');
   speakCurrentFact();
 }
